@@ -1,18 +1,14 @@
 <template>
   <b-row>
+    <b-col offset="1" cols="10">
+      <vue-slider v-model="playersNumber" :min="2" :max="10"></vue-slider>
+      {{txtPlayersNumber}} : {{playersNumber}}
+    </b-col>
     <b-col cols="12">
       <b-button id="btnPlay" variant="outline-secondary" @click="showModal">
         {{ btnPlayDescription }}
       </b-button>
 
-
-    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
-      <div class="d-block text-center">
-        <h3>Hello From My Modal!</h3>
-      </div>
-      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>
-      <b-button class="mt-2" variant="outline-warning" block @click="toggleModal">Toggle Me</b-button>
-    </b-modal>
     </b-col>
   </b-row>
 </template>
@@ -25,29 +21,24 @@ export default {
   created() {
     this.language = localStorageService.getKey("language");
     if (!this.language) this.language = "EN";
+    const localisedTexts =  componentService.getTexts()[this.language];
 
-    this.btnPlayDescription =
-      componentService.getTexts()[this.language]["btnPlay"];
+    this.btnPlayDescription =localisedTexts["btnPlay"];
+      this.txtPlayersNumber = localisedTexts["txtPlayersNumber"];
   },
   data() {
     return {
       language: "",
       btnPlayDescription: "",
+
+      playersNumber : 2
     };
   },
-  methods:{
-    showModal() {
-        this.$refs['my-modal'].show()
-      },
-      hideModal() {
-        this.$refs['my-modal'].hide()
-      },
-      toggleModal() {
-        // We pass the ID of the button that we want to return focus 
-        // when the modal has hidden
-        this.$refs['my-modal'].toggle('#toggle-btn')
-      }
-  }
+  methods: {
+showModal(){
+  console.log("a");
+}
+  },
 };
 </script>
 

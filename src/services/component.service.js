@@ -2,11 +2,13 @@ const texts =
     {
         "ES" : {
             "btnPlay" :"Jugar",
-            "txtTitle" :"Preguntas con cancha"
+            "txtTitle" :"Preguntas con cancha",
+            "txtPlayersNumber": "Número de jugadores"
         },
         "EN" : {
             "btnPlay" :"Play",
-            "txtTitle" :"Pop questions"
+            "txtTitle" :"Pop questions",
+            "txtPlayersNumber": "Number of players"            
         }
     };
 
