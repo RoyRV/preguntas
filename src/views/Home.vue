@@ -3,9 +3,8 @@
     <b-col cols="12">
       <b-row>
         <b-col cols="12">
- 
-        <!-- <b-img :src="'~/assets/cancha.png'" fluid ></b-img> -->
-        <img src="../assets/cancha.png" height="50px"/>
+          <!-- <b-img :src="'~/assets/cancha.png'" fluid ></b-img> -->
+          <img src="../assets/cancha.png" height="50px" />
         </b-col>
       </b-row>
       <b-row>
@@ -24,7 +23,11 @@
 
 
 <script>
-import { localStorageService, componentService } from "../services";
+import {
+  localStorageService,
+  componentService,
+  languageService,
+} from "../services";
 import Index from "@/components/Index.vue";
 
 export default {
@@ -34,7 +37,12 @@ export default {
   },
   created() {
     this.language = localStorageService.getKey("language");
-    if (!this.language) this.language = "EN";
+    var languages = languageService.getLanguages();
+
+    if (!this.language || languages[this.language] == undefined) {
+      this.language = "EN";
+      localStorageService.setKey("language", this.language);
+    }
 
     this.txtTitleDescription =
       componentService.getTexts()[this.language]["txtTitle"];

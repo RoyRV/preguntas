@@ -1,17 +1,16 @@
-const languages = [
-  {
-    "ES": "Español",
+const languages = {
+  "ES" : {
+    "Description" : "Español"
   },
-  {
-    "EN": "Ingles",
-  },
-];
-
+  "EN" : {
+    "Description" : "Ingles"
+  }
+};
 
 const getLanguages = () => {
-    return languages;
+  return languages;
 };
 
 export const languageService = {
-    getLanguages
-}
+  getLanguages,
+};
