@@ -1,3 +1,7 @@
+import {
+  languageService
+} from "../services";
+
 const segments = [
   {
     textFillStyle: "#000",
@@ -51,7 +55,8 @@ const segments = [
   },
 ];
 
-const getSegments = (language,playersCount) => {
+const getSegments = (playersCount) => {
+  const language = languageService.getCurrentLanguage();
   var text = "";
   switch (language) {
     case "ES":

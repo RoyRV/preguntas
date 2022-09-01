@@ -10,20 +10,16 @@
       {{ txtPlayersNumber }} : {{ playersNumber }}
     </b-col>
     <b-col cols="12"> </b-col>
-    <b-col cols="12" class="spinContainer">
-      <VueWinWheel :segments="options" :buttontext="btnSpinText" />
-    </b-col>
-    <b-col cols="12">
-      <div class="questionContainer">
-        <span>{{ question }}</span>
-      </div>
+    <b-col cols="12" class="spinContainer" >
+      <VueWinWheel  :buttontext="btnSpinText" :options="segments" 
+      :question ="question" @finished="finished"
+      ref="winWheel" />
     </b-col>
   </b-row>
 </template>
 
 <script>
 import {
-  localStorageService,
   componentService,
   questionService,
   languageService,
@@ -37,15 +33,9 @@ export default {
     VueWinWheel,
   },
   created() {
-    this.language = localStorageService.getKey("language");
-    var languages = languageService.getLanguages();
+    this.language = languageService.getCurrentLanguage();
 
-    if (!this.language || languages[this.language] == undefined) {
-      this.language = "EN";
-      localStorageService.setKey("language", this.language);
-    }
-
-    this.options = playerService.getSegments(this.language, this.playersNumber);
+    this.segments = playerService.getSegments( this.playersNumber);
 
     const localisedTexts = componentService.getTexts()[this.language];
 
@@ -53,7 +43,7 @@ export default {
     this.txtPlayersNumber = localisedTexts["txtPlayersNumber"];
     this.txtQuestionDescription = localisedTexts["txtQuestionDescription"];
     this.btnSpinText = localisedTexts["btnSpinText"];
-    this.question = "";
+    this.question = "text";
   },
   data() {
     return {
@@ -66,30 +56,26 @@ export default {
       txtQuestionDescription: "",
       btnSpinText: "",
 
-      options: [],
+      segments: [],
     };
   },
   methods: {
-    getRandomQuestion() {
-      const randomQue = questionService.getRandomQuestion(this.language);
-      const randomPlayer = this.getRandomPlayer();
-      this.question =
-        this.txtQuestionDescription + randomPlayer + ": " + randomQue;
-    },
     getRandomPlayer() {
       const players = Array.from(Array(this.playersNumber).keys());
       return players[Math.floor(Math.random() * this.playersNumber)] + 1;
     },
+    finished(){
+       this.question = questionService.getRandomQuestion(this.language);
+    }
   },
   watch: {
     playersNumber: {
       immediate: false,
       deep: true,
       handler() {
-        this.options = playerService.getSegments(
-          this.language,
-          this.playersNumber
-        );
+        this.segments = playerService.getSegments(this.playersNumber);
+        this.$refs.winWheel.assignNewSegments(this.segments);
+        this.$refs.winWheel.resetWheel();
       },
     },
   },

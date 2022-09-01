@@ -24,7 +24,6 @@
 
 <script>
 import {
-  localStorageService,
   componentService,
   languageService,
 } from "../services";
@@ -36,14 +35,7 @@ export default {
     Index,
   },
   created() {
-    this.language = localStorageService.getKey("language");
-    var languages = languageService.getLanguages();
-
-    if (!this.language || languages[this.language] == undefined) {
-      this.language = "EN";
-      localStorageService.setKey("language", this.language);
-    }
-
+    this.language = languageService.getCurrentLanguage();
     this.txtTitleDescription =
       componentService.getTexts()[this.language]["txtTitle"];
   },

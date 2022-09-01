@@ -1,3 +1,7 @@
+import {
+  localStorageService
+} from "../services";
+
 const languages = {
   "ES" : {
     "Description" : "Español"
@@ -11,6 +15,17 @@ const getLanguages = () => {
   return languages;
 };
 
+const getCurrentLanguage = () => {
+  let language = localStorageService.getKey("language");
+  const languages = getLanguages();
+  if (!language || languages[language] == undefined) {
+    language = "EN";
+    localStorageService.setKey("language", this.language);
+  }
+  return language;
+}
+
 export const languageService = {
   getLanguages,
+  getCurrentLanguage
 };
