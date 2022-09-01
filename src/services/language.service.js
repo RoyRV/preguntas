@@ -20,7 +20,7 @@ const getCurrentLanguage = () => {
   const languages = getLanguages();
   if (!language || languages[language] == undefined) {
     language = "EN";
-    localStorageService.setKey("language", this.language);
+    localStorageService.setKey("language", language);
   }
   return language;
 }
