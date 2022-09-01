@@ -3,13 +3,15 @@ const texts = {
     btnPlay: "Jugar",
     txtTitle: "Preguntas con cancha",
     txtPlayersNumber: "Número de jugadores",
-    txtQuestionDescription : "Preguntale al jugador "
+    txtQuestionDescription : "Preguntale al jugador ",
+    btnSpinText : "Girar"
   },
   EN: {
     btnPlay: "Play",
     txtTitle: "Pop questions",
     txtPlayersNumber: "Number of players",
-    txtQuestionDescription : "Ask player "
+    txtQuestionDescription : "Ask player ",
+    btnSpinText : "Spin"
   },
 };
 

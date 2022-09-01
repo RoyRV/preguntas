@@ -1,17 +1,17 @@
 <template>
   <b-row>
     <b-col offset="1" cols="10">
-      <vue-slider v-model="playersNumber" :min="2" :max="10"></vue-slider>
+      <vue-slider
+        v-model="playersNumber"
+        :min="2"
+        :max="10"
+        :tooltip="'always'"
+      ></vue-slider>
       {{ txtPlayersNumber }} : {{ playersNumber }}
     </b-col>
-    <b-col cols="12">
-      <b-button
-        id="btnPlay"
-        variant="outline-secondary"
-        @click="getRandomQuestion"
-      >
-        {{ btnPlayDescription }}
-      </b-button>
+    <b-col cols="12"> </b-col>
+    <b-col cols="12" class="spinContainer">
+      <VueWinWheel :segments="options" :buttontext="btnSpinText" />
     </b-col>
     <b-col cols="12">
       <div class="questionContainer">
@@ -27,10 +27,15 @@ import {
   componentService,
   questionService,
   languageService,
+  playerService,
 } from "../services";
+import VueWinWheel from "@/components/VueWinWheel.vue";
 
 export default {
   name: "Home",
+  components: {
+    VueWinWheel,
+  },
   created() {
     this.language = localStorageService.getKey("language");
     var languages = languageService.getLanguages();
@@ -40,11 +45,14 @@ export default {
       localStorageService.setKey("language", this.language);
     }
 
+    this.options = playerService.getSegments(this.language, this.playersNumber);
+
     const localisedTexts = componentService.getTexts()[this.language];
 
     this.btnPlayDescription = localisedTexts["btnPlay"];
     this.txtPlayersNumber = localisedTexts["txtPlayersNumber"];
     this.txtQuestionDescription = localisedTexts["txtQuestionDescription"];
+    this.btnSpinText = localisedTexts["btnSpinText"];
     this.question = "";
   },
   data() {
@@ -56,6 +64,9 @@ export default {
       btnPlayDescription: "",
       txtPlayersNumber: "",
       txtQuestionDescription: "",
+      btnSpinText: "",
+
+      options: [],
     };
   },
   methods: {
@@ -70,6 +81,18 @@ export default {
       return players[Math.floor(Math.random() * this.playersNumber)] + 1;
     },
   },
+  watch: {
+    playersNumber: {
+      immediate: false,
+      deep: true,
+      handler() {
+        this.options = playerService.getSegments(
+          this.language,
+          this.playersNumber
+        );
+      },
+    },
+  },
 };
 </script>
 
@@ -77,7 +100,8 @@ export default {
 #btnPlay {
   margin-top: 40px;
 }
-.questionContainer {
+.questionContainer,
+.spinContainer {
   margin-top: 20px;
 }
 </style>
