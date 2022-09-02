@@ -8,7 +8,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import router from './router'
 
-
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
 

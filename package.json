@@ -13,6 +13,8 @@
     "bootstrap": "^5.2.0",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.6.5",
+    "flag-icons": "^6.6.6",
+    "gsap": "^3.11.0",
     "vue": "^2.7.10",
     "vue-router": "^3.2.0",
     "vue-slider-component": "^3.2.20"

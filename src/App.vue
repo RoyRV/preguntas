@@ -2,11 +2,29 @@
   <div id="app">
     <b-container>
       <b-card class="b-card">
+        <div id="content">
+          <div class="flagContainer">
+            <LangFlag class="flag" iso="en" href="?language=EN"/>
+            <LangFlag class="flag" iso="es" href="?language=ES" />
+          </div>
+        </div>
         <router-view :key="$route.fullPath" />
       </b-card>
     </b-container>
   </div>
 </template>
+
+<script>
+
+import LangFlag from "@/components/LangFlag.vue";
+export default {
+  name: "App",
+  components: {
+    LangFlag
+  },
+};
+</script>
+
 
 <style>
 #app {
@@ -29,5 +47,17 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#content {
+  position: relative;
+}
+#content .flagContainer {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.flag{
+  margin : 0 5px 0 5px;
 }
 </style>

@@ -1,7 +1,6 @@
 import { TweenMax } from "gsap";
 /* eslint-disable */
 
-
 export class Winwheel {
   constructor(options, drawWheel) {
     var defaultOptions = {
