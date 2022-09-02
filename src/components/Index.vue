@@ -5,7 +5,6 @@
         v-model="playersNumber"
         :min="2"
         :max="10"
-        :tooltip="'always'"
       ></vue-slider>
       {{ txtPlayersNumber }} : {{ playersNumber }}
     </b-col>
