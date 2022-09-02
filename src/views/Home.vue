@@ -21,7 +21,6 @@
   </b-row>
 </template>
 
-
 <script>
 import {
   componentService,

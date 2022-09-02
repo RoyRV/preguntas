@@ -4,8 +4,16 @@
       <b-card class="b-card">
         <div id="content">
           <div class="flagContainer">
-            <LangFlag class="flag" iso="en" href="?language=EN"/>
-            <LangFlag class="flag" iso="es" href="?language=ES" />
+            <LangFlag
+              class="flag"
+              iso="en"
+              @languageChanged="languageChanged"
+            />
+            <LangFlag
+              class="flag"
+              iso="es"
+              @languageChanged="languageChanged"
+            />
           </div>
         </div>
         <router-view :key="$route.fullPath" />
@@ -15,12 +23,18 @@
 </template>
 
 <script>
-
+import { localStorageService } from "@/services";
 import LangFlag from "@/components/LangFlag.vue";
 export default {
   name: "App",
   components: {
-    LangFlag
+    LangFlag,
+  },
+  methods: {
+    languageChanged(language) {
+      localStorageService.setKey("language", language);
+      this.$router.go(0);
+    },
   },
 };
 </script>
@@ -57,7 +71,7 @@ export default {
   top: 0px;
   right: 0px;
 }
-.flag{
-  margin : 0 5px 0 5px;
+.flag {
+  margin: 0 5px 0 5px;
 }
 </style>
