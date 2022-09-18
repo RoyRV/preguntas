@@ -17,7 +17,7 @@ export default {
   props: {
     iso: { type: String, required: true },
     title: { type: String, default: null },
-    squared: { type: Boolean, default: true },
+    squared: { type: Boolean, default: false },
   },
   methods: {
     flagClicked() {
